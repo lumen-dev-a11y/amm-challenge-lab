@@ -5,7 +5,7 @@ import {AMMStrategyBase} from "./AMMStrategyBase.sol";
 import {TradeInfo} from "./IAMMStrategy.sol";
 
 /// @title SimpleFixed55
-/// @notice Best-performing configuration so far (~379 edge over 200 sims)
+/// @notice Fixed 0.55% fees (55 bps) — best baseline so far (~379 edge / 200 sims)
 contract Strategy is AMMStrategyBase {
     uint256 private constant FEE_BPS = 55;
 
