@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+amm-challenge/.mypy_cache/
+amm-challenge/.ruff_cache/
+amm-challenge/amm_sim_rs/target/
+amm-challenge/amm_sim_rs/.maturin/
+amm-challenge/amm_sim_rs/.cargo/
+amm-challenge/amm_sim_rs/.pytest_cache/
+.openclaw/
