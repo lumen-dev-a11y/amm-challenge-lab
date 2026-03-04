@@ -23,7 +23,7 @@ contract Strategy is AMMStrategyBase {
 
     function afterSwap(TradeInfo calldata t) external override returns (uint256 bidFee, uint256 askFee) {
         uint256 base = bpsToWad(30);
-        uint256 maxExtra = bpsToWad(106);
+        uint256 maxExtra = bpsToWad(113);
 
         uint256 tradeRatio = 0;
         if (t.reserveY > 0) {
@@ -44,15 +44,15 @@ contract Strategy is AMMStrategyBase {
         else risk = 0;
 
         if (tradeRatio > WAD / 50) risk += bpsToWad(6);   // >2%
-        if (tradeRatio > WAD / 20) risk += bpsToWad(16);  // >5%
-        if (dt <= 2 && switched) risk += bpsToWad(21);
+        if (tradeRatio > WAD / 20) risk += bpsToWad(27);  // >5%
+        if (dt <= 2 && switched) risk += bpsToWad(20);
 
         if (risk > WAD) risk = WAD;
 
         uint256 dyn = base + wmul(risk, maxExtra);
 
         uint256 skew = wmul(tradeRatio, bpsToWad(40));
-        if (skew > bpsToWad(21)) skew = bpsToWad(21);
+        if (skew > bpsToWad(17)) skew = bpsToWad(17);
 
         if (isBuy) {
             bidFee = clampFee(dyn + skew);
@@ -72,6 +72,6 @@ contract Strategy is AMMStrategyBase {
     }
 
     function getName() external pure override returns (string memory) {
-        return "auto_2";
+        return "auto_83";
     }
 }
