@@ -26,7 +26,7 @@ contract Strategy is AMMStrategyBase {
     uint256 constant MIN_GATE = 30000000000000000; // 0.03 WAD
 
     // --- Cubic Toxicity ---
-    uint256 constant TOX_CUBIC_COEF = 15000 * BPS;
+    uint256 constant TOX_CUBIC_COEF = 14500 * BPS;
 
     // --- Trade-Tox Boost ---
     uint256 constant TRADE_TOX_BOOST = 2500 * BPS;
@@ -47,15 +47,19 @@ contract Strategy is AMMStrategyBase {
     uint256 constant LAMBDA_COEF = 12 * BPS;
     uint256 constant FLOW_SIZE_COEF = 4842 * BPS;
     uint256 constant TOX_COEF = 250 * BPS;
-    uint256 constant TOX_QUAD_COEF = 11700 * BPS;
-    uint256 constant ACT_COEF = 91843 * BPS;
+    uint256 constant TOX_QUAD_COEF = 12800 * BPS;
+    uint256 constant ACT_COEF = 98000 * BPS;
     uint256 constant DIR_COEF = 20 * BPS;
     uint256 constant DIR_TOX_COEF = 100 * BPS;
-    uint256 constant STALE_DIR_COEF = 6850 * BPS;
+    uint256 constant STALE_DIR_COEF = 6800 * BPS;
     uint256 constant SIGMA_TOX_COEF = 500 * BPS;
     uint256 constant TAIL_KNEE = 500 * BPS;
     uint256 constant TAIL_SLOPE_PROTECT = 930000000000000000; // 0.93
     uint256 constant TAIL_SLOPE_ATTRACT = 955000000000000000; // 0.955
+
+    uint256 constant SIGMA_HIGH_THRESHOLD = 1100000000000000;
+    uint256 constant PROTECTIVE_BASE_FEE = 3 * BPS;
+    uint256 constant COMPETITIVE_BASE_FEE = 1 * BPS;
 
     // slots[0] = bid fee
     // slots[1] = ask fee
@@ -173,7 +177,8 @@ contract Strategy is AMMStrategyBase {
         if (stepTradeCount > STEP_COUNT_CAP) stepTradeCount = STEP_COUNT_CAP;
 
         uint256 flowSize = wmul(lambdaHat, sizeHat);
-        uint256 fBase = BASE_FEE + wmul(SIGMA_COEF, sigmaHat) + wmul(LAMBDA_COEF, lambdaHat) + wmul(FLOW_SIZE_COEF, flowSize);
+        uint256 baseFee = sigmaHat > SIGMA_HIGH_THRESHOLD ? PROTECTIVE_BASE_FEE : COMPETITIVE_BASE_FEE;
+        uint256 fBase = baseFee + wmul(SIGMA_COEF, sigmaHat) + wmul(LAMBDA_COEF, lambdaHat) + wmul(FLOW_SIZE_COEF, flowSize);
         uint256 fMid = fBase + wmul(TOX_COEF, toxSignal) + wmul(TOX_QUAD_COEF, wmul(toxSignal, toxSignal)) + wmul(ACT_COEF, actEma);
 
         fMid = fMid + wmul(SIGMA_TOX_COEF, wmul(sigmaHat, toxSignal));
@@ -280,6 +285,6 @@ contract Strategy is AMMStrategyBase {
     }
 
     function getName() external pure override returns (string memory) {
-        return "yq";
+        return "yq_act_98000";
     }
 }
