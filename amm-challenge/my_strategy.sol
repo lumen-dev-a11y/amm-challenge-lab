@@ -26,10 +26,10 @@ contract Strategy is AMMStrategyBase {
     uint256 constant MIN_GATE = 30000000000000000; // 0.03 WAD
 
     // --- Cubic Toxicity ---
-    uint256 constant TOX_CUBIC_COEF = 14500 * BPS;
+    uint256 constant TOX_CUBIC_COEF = 14222 * BPS;
 
     // --- Trade-Tox Boost ---
-    uint256 constant TRADE_TOX_BOOST = 2500 * BPS;
+    uint256 constant TRADE_TOX_BOOST = 2854 * BPS;
 
     // --- Asymmetric Stale Dir ---
     uint256 constant STALE_ATTRACT_FRAC = 1124000000000000000; // 1.124
@@ -45,13 +45,13 @@ contract Strategy is AMMStrategyBase {
     uint256 constant BASE_FEE = 3 * BPS;
     uint256 constant SIGMA_COEF = 200000000000000000; // 0.20
     uint256 constant LAMBDA_COEF = 12 * BPS;
-    uint256 constant FLOW_SIZE_COEF = 4842 * BPS;
-    uint256 constant TOX_COEF = 250 * BPS;
-    uint256 constant TOX_QUAD_COEF = 12800 * BPS;
-    uint256 constant ACT_COEF = 98000 * BPS;
+    uint256 constant FLOW_SIZE_COEF = 4600 * BPS;
+    uint256 constant TOX_COEF = 382 * BPS;
+    uint256 constant TOX_QUAD_COEF = 12616 * BPS;
+    uint256 constant ACT_COEF = 99079 * BPS;
     uint256 constant DIR_COEF = 20 * BPS;
     uint256 constant DIR_TOX_COEF = 100 * BPS;
-    uint256 constant STALE_DIR_COEF = 6800 * BPS;
+    uint256 constant STALE_DIR_COEF = 6456 * BPS;
     uint256 constant SIGMA_TOX_COEF = 500 * BPS;
     uint256 constant TAIL_KNEE = 500 * BPS;
     uint256 constant TAIL_SLOPE_PROTECT = 930000000000000000; // 0.93
@@ -285,6 +285,6 @@ contract Strategy is AMMStrategyBase {
     }
 
     function getName() external pure override returns (string memory) {
-        return "yq_act_98000";
+        return "night_3";
     }
 }
